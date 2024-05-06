@@ -482,7 +482,7 @@ class Trainer(AbstractTrainer):
         self.model.eval()
 
         if self.config['customized_eval']:
-            eval_func = self._full_sort_batch_eval_customized_samples
+            eval_func = self._full_sort_batch_eval
         elif isinstance(eval_data, FullSortEvalDataLoader):
             eval_func = self._full_sort_batch_eval
             if self.item_tensor is None:

@@ -197,7 +197,7 @@ def create_samplers(config, dataset, built_datasets):
             - valid_sampler (AbstractSampler): The sampler for validation.
             - test_sampler (AbstractSampler): The sampler for testing.
     """
-    phases = ['train', 'test']
+    phases = ['train', 'valid', 'test']
     train_neg_sample_args = config['train_neg_sample_args']
     eval_neg_sample_args = config['eval_neg_sample_args']
     sampler = None
@@ -219,7 +219,7 @@ def create_samplers(config, dataset, built_datasets):
                 sampler = RepeatableSampler(phases, dataset, eval_neg_sample_args['distribution'])
         else:
             sampler.set_distribution(eval_neg_sample_args['distribution'])
-        # valid_sampler = sampler.set_phase('valid')
+        valid_sampler = sampler.set_phase('valid')
         test_sampler = sampler.set_phase('test')
 
-    return train_sampler, test_sampler
+    return train_sampler, valid_sampler, test_sampler

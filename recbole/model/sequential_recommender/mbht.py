@@ -420,6 +420,7 @@ class MBHT(SequentialRecommender):
             else:
                 metrics, sim_items = torch.topk(seq_item_sim, group_len, sorted=False)
             # map indices to item tokens
+            sim_items = sim_items.cpu()
             sim_items = seq[sim_items]
             row_idx, masked_pos = torch.nonzero(sim_items==self.mask_token, as_tuple=True)
             sim_items[row_idx, masked_pos] = seq[row_idx]
